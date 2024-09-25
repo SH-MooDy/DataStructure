@@ -17,6 +17,7 @@ int main() {
 
             bool isDuplicate = false; // 중복여부를 나타내는 플래그
             for (int i = 0; i < n; i++) {
+            
                 // 중복 발견시 duplicate를 true로 변경 후 for문 탈출
                 if (wordList[i] == word) {
                     isDuplicate = true;
