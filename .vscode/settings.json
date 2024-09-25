@@ -1,7 +1,7 @@
 {
     "files.associations": {
         "algorithm": "cpp",
-        "set": "cpp"
-
+        "set": "cpp",
+        "xstring": "cpp"
     }
 }

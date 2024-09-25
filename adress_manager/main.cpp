@@ -112,7 +112,7 @@ void delete_person(string name) {
     string answer;
     for (auto it = directory.begin(); it != directory.end();) {
         if (it->name.compare(0, name.size(), name) == 0) {
-            cout << "Want to delete '" << it->name << "' ?";
+            cout << "Want to delete '" << it->name << "'? ";
             cin >> answer;
             if (answer == "yes" || answer == "y")
                 it = directory.erase(it);
@@ -129,15 +129,15 @@ void delete_person(string name) {
 void save_directory() {
     ofstream outfile("address.tsv");
     for (auto& p : directory)
-        outfile << p.name << '\t' << p.address << '\t' << p.phone << '\t' << p.email
-        << '\t' << p.web << endl;
+        outfile << p.name << '\t' << p.address << '\t' << p.phone << '\t' << p.email << '\t' << p.web << endl;
     outfile.close();
 }
+
 int main() {
-     load_data("address.tsv");
+    load_data("address.tsv");
     string command, arguments;
     while (1) {
-        cout << " $";
+        cout << "$ ";
         cin >> command;
         if (command == "exit")
             break;
