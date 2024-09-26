@@ -62,6 +62,7 @@ int main(){
                 int foundIndex = binarySearch(dict, token);
                 
                 if(foundIndex != -1) {
+                    // 중복 확인
                     if(find(words.begin(),words.end(), token) == words.end()){
                         cout << dict[foundIndex].first << ": " << dict[foundIndex].second << endl;
                         words.push_back(token); 
