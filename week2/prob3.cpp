@@ -29,7 +29,6 @@ int main(){
     ifstream infile("shuffled_dict.txt");
     string line;
 
-    // 파일을 읽어와 단어, 설명 저장
     while(getline(infile, line)){
         string word, description;
         stringstream ss(line);
@@ -55,7 +54,7 @@ int main(){
         // 설명에 등장하는 단어들 중에서 길이가 3 이상인 단어 다시 검색
         stringstream ss(dict[index].second);
         string token;
-        vector<string> words; // 중복 방지를 위해 출력된 단어들을wo 저장하는 벡터
+        vector<string> words; // 중복 방지를 위해 출력된 단어들을 저장하는 벡터
 
         while (ss >> token){
             if(token.length() >= 3){

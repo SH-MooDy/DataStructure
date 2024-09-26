@@ -21,7 +21,6 @@ int main() {
         else {
             strs.push_back(word);
             sort(strs.begin(), strs.end());
-            
         }
 
         for (auto s : strs) {
