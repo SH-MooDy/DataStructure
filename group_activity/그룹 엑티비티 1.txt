@@ -1,0 +1,37 @@
+1. firstvalue is 10
+   secondvalue is 20
+2. firstvalue is 10
+   secondevalue is 20
+3. 10,20,30,40,50,
+4. 11,21,31
+5. y, 1603
+6. 함수 포인터 참고 (https://cplusplus.com/forum/beginner/67474/), (https://velog.io/@meong9090/cpp-%ED%95%A8%EC%88%98%ED%8F%AC%EC%9D%B8%ED%84%B0-%EA%B0%9D%EC%B2%B4%EC%9D%98-%ED%95%A8%EC%88%98%ED%8F%AC%EC%9D%B8%ED%84%B0)
+ㄴ m=12, n = 8
+7. 11
+8. Test string
+9. John K. Smith 
+10. Writing 10 are cool
+11. to be the question
+12. This is an example sentence. 
+     This is an sentence
+     This is a sentence
+     This sentence
+13. this is an example string
+     sample phraseng
+14. hello world
+15. Please
+    split 
+    this
+    sentence
+    inti 
+    tokens
+16. 14
+    27
+    There are two prepositions with needles.
+17. Pl**s*, r*pl*c* th* v*w*ls in th*s s*nt*bc* by *st*r*sks.
+18. think live in details.
+19. green apple is not red apple
+    still green apple is an apple
+    and red apple is also an apple
+    therefore, both are apples
+    
