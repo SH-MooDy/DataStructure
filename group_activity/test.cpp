@@ -1,11 +1,20 @@
+#include <algorithm> 
 #include <iostream> 
-#include <string> 
+#include <vector> 
 using namespace std; 
 int main() { 
-    string str="We think in generalities, but we live in details."; 
-    string str2 = str.substr (3,5); 
-    size_t pos = str.find("live"); 
-    string str3 = str.substr(pos); 
-    cout << str2 << ' ' << str3 << '\n'; 
+    vector<int> my_vec = { 1, 3, 1, 4, 4, 6, 5, 6, 6 }; 
+    sort(my_vec.begin(), my_vec.end()); 
+    for (int item : my_vec) 
+        cout << item << " "; 
+    cout << endl; 
+    auto it = unique(my_vec.begin(), my_vec.end()); 
+    for (int item : my_vec) 
+        cout << item << " "; 
+    cout << endl; 
+    my_vec.erase(it, my_vec.end()); 
+    for (int item : my_vec) 
+        cout << item << " "; 
+    cout << endl; 
     return 0; 
 }
