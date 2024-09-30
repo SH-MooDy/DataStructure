@@ -28,7 +28,6 @@ int main(){
     vector<pair<string,string>> dict;
     ifstream infile("shuffled_dict.txt");
     string line;
-
     while(getline(infile, line)){
         string word, description;
         stringstream ss(line);
