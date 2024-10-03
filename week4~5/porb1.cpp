@@ -23,10 +23,11 @@ void read_file() {
     int x, y, w, h;
     string line;
     ifstream infile("rects.txt");
-    infile >> num;
-    infile.ignore() // 개행문자 무시
 
-    for(int i=0; i<num; i++) {
+    infile >> num;
+    infile.ignore(); // 개행문자 무시
+
+    for(int i=0; i < num; i++) {
         getline(infile, line);
         stringstream ss(line);
         ss >> x >> y >> w >> h; // 스트링스트림으로 하나씩 받아오기
@@ -38,11 +39,11 @@ void read_file() {
         q->h = h;
         q->next = nullptr;
 
-        if(n == 0) { // 연결리스트 첫 생성의 경우
-            head = q;.
+        if(head == nullptr) { // 연결리스트 첫 생성의 경우
+            head = q;
         } else { 
-            Node *p = head; // head부터 시작
-            if(p->next != nullptr) { // 마지막 노드까지 이동
+            Node *p = head;
+            while(p->next != nullptr) { // 마지막 노드까지 이동
                 p = p->next;
             }
 
@@ -59,7 +60,6 @@ int main() {
     // (1)
     read_file(); // 파일을 읽어서 파일에 저장된 순서대로 저장된 연결리스트를 구성한다.
     print_list(); // 파일에 저장된 순서대로 출력된다.
-v  
     cout << endl; // 한 줄을 띄운다.
 
     // (2)
@@ -68,10 +68,13 @@ v
     cout << endl;
 
     // (3)
+    /*
     int min_w, min_h;
     cin >> min_w >> min_h;
     remove_rects(min_w, min_h);
     print_list();
+    */
+
 
     return 0;
 }
