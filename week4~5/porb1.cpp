@@ -67,6 +67,10 @@ void sort_by_area() {
     }
 }
 
+remove_rects(min_w, min_h){
+    
+}
+
 int main() {
     // (1)
     read_file(); // 파일을 읽어서 파일에 저장된 순서대로 저장된 연결리스트를 구성한다.
@@ -79,13 +83,10 @@ int main() {
     cout << endl;
 
     // (3)
-    /*
     int min_w, min_h;
     cin >> min_w >> min_h;
     remove_rects(min_w, min_h);
     print_list();
-    */
-
-
+    
     return 0;
 }
