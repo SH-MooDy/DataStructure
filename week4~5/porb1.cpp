@@ -53,7 +53,18 @@ void read_file() {
 }
 
 void sort_by_area() { 
-    // head가 가리키는 연결리스트를 면적순으로 정렬한다.  
+    for (Node *p1 = head; p1 != nullptr; p1 = p1->next) {
+        for (Node *p2 = head; p2->next != nullptr; p2 = p2->next) {
+            int area1 = (p2->w) * (p2->h);
+            int area2 = (p2->next->w) * (p2->next->h);
+            if(area1 > area2){
+                swap(p2->x, p2->next->x);
+                swap(p2->y, p2->next->y);
+                swap(p2->w, p2->next->w);
+                swap(p2->h, p2->next->h);
+            }
+        }
+    }
 }
 
 int main() {
