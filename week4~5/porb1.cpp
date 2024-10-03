@@ -1,5 +1,6 @@
 #include<iostream>
 #include<fstream>
+#include<sstream>
 
 using namespace std;
 
@@ -18,8 +19,36 @@ void print_list() {
 }
 
 void read_file() {
-    // rects.txt 파일을 읽어서 사각형들을 파일에 저장된 순서대로  
-    // head가 가리키는 연결리스트에 저장한다.
+    int num = 0;
+    int x, y, w, h;
+    string line;
+    ifstream infile("rects.txt");
+    infile >> num;
+    infile.ignore() // 개행문자 무시
+
+    for(int i=0; i<num; i++) {
+        getline(infile, line);
+        stringstream ss(line);
+        ss >> x >> y >> w >> h; // 스트링스트림으로 하나씩 받아오기
+
+        Node *q = new Node;
+        q->x = x;
+        q->y = y;  
+        q->w = w;
+        q->h = h;
+        q->next = nullptr;
+
+        if(n == 0) { // 연결리스트 첫 생성의 경우
+            head = q;.
+        } else { 
+            Node *p = head; // head부터 시작
+            if(p->next != nullptr) { // 마지막 노드까지 이동
+                p = p->next;
+            }
+
+            p->next = q; // 마지막 노드의 next를 새 노드로 설정
+        }
+    }
 }
 
 void sort_by_area() { 
@@ -30,7 +59,7 @@ int main() {
     // (1)
     read_file(); // 파일을 읽어서 파일에 저장된 순서대로 저장된 연결리스트를 구성한다.
     print_list(); // 파일에 저장된 순서대로 출력된다.
-
+v  
     cout << endl; // 한 줄을 띄운다.
 
     // (2)
