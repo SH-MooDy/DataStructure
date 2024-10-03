@@ -123,4 +123,58 @@ void handle_print(char name) {
         print_poly(*it);
 }
 
-int calc_term()
+int calc_term(Term *term, int x) { // 하나의 항의 값을 계산하는 함수
+    int result = term->coef;
+    for (int i=0; i<term->expo; i++) {
+        result *= x;
+    }
+    return result;
+}
+
+int clac_poly(Polynomial poly, int x) { // 다항식의 값을 계산하는 함수
+    int result = 0;
+    Term *t = poly.first;
+    while(t != nullptr) {
+        result += calc_term(t, x); // 각각의 항의 값을 계산하여 더함
+        t = t->next;
+    }
+    return result;
+}
+
+ void handle_calc(char name, int x) {
+    auto it = find_poly(name);
+    if (it==polys.end()) 
+        cout << "No such polynomial exists." << endl;
+    else    
+        cout << calc_poly(*it, x) << endl;
+ }
+
+void clear_poly(Polynomial &p) {
+    Term *t = p.first, *tmp;
+    while (t!=nullptr) {
+        tmp = t;
+        t = t->next;
+        delete tmp;
+    }
+    p.first = nullptr;
+}
+
+ void insert_Polynomial(Polynomial p) {
+    auto it = find_poly(p.name);
+    if (it == polys.end()) {
+        polys.push_back(p);
+    }
+    else {
+        clear_poly(*it);
+        *it = p; // 덮어씌우기
+    }
+}
+
+void handle_add(char name, int c, int e) {
+    auto it = find_poly(name);
+    if (it == polys.end()) {
+        cout << "No such polynomial exists." << endl;
+        return;
+    }
+    add_term(*it, c, e);
+}
