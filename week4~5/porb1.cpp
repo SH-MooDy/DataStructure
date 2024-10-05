@@ -66,6 +66,8 @@ void sort_by_area() {
             Node *q = p -> next;
             int area1 = p->w * q->h;
             int area2 = q->w * q->h;
+
+            // 앞선 노드의 넓이가 뒷 노드 보다 넓다면 노드 스왑
             if (area1 > area2) {
                 if (prev == nullptr) {
                     q = head;
@@ -73,20 +75,28 @@ void sort_by_area() {
                 else {
                     prev->next = q;
                 }
-
+                
                 p->next = q->next;
                 q->next = p;
-
                 isSwaped = true;
             }
         }
     }
-    
-
 }
 
 remove_rects(min_w, min_h){
-    
+    Node *p = head;
+    while (p != nullptr) {
+        if (p->w < min_w && p->h < min_h) {
+            if(p == head) {
+                head = p;
+            }
+            else {
+                
+            }
+        }
+        p = p->next;
+    }
 }
 
 int main() {
