@@ -53,18 +53,33 @@ void read_file() {
 }
 
 void sort_by_area() { 
-    for (Node *p1 = head; p1 != nullptr; p1 = p1->next) {
-        for (Node *p2 = head; p2->next != nullptr; p2 = p2->next) {
-            int area1 = (p2->w) * (p2->h);
-            int area2 = (p2->next->w) * (p2->next->h);
-            if(area1 > area2){
-                swap(p2->x, p2->next->x);
-                swap(p2->y, p2->next->y);
-                swap(p2->w, p2->next->w);
-                swap(p2->h, p2->next->h);
+    if (head == nullptr || head->next == nullptr) { retrun;} // 리스트가 비어있거나 노드가 하나인 경우
+    
+    // 버블 정렬을 통해 정렬
+    bool isSwaped = true;
+    while (isSwaped) {
+        Node *p1 = head; // 현재 노드
+        Node prev = nullptr; // 이전 노드
+        isSwaped = false;
+
+        while (p1 != nullptr && p1 != nullptr ) {
+            Node *p2 = p1 -> next;
+            int area1 = p1->w * p2->h;
+            int area2 = p2->w * p2->h;
+            if (area1 > area2) {
+                if (prev == nullptr) {
+                    p2 = head;
+                    p1->next = p2->next;
+                    p2->next = p1;
+                }
+                else {
+                    
+                }
             }
         }
     }
+    
+
 }
 
 remove_rects(min_w, min_h){
