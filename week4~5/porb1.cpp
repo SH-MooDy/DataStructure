@@ -53,24 +53,24 @@ void read_file() {
 }
 
 void sort_by_area() { 
-    if (head == nullptr || head->next == nullptr) { retrun; } // 리스트가 비어있거나 노드가 하나인 경우
+    if (head == nullptr || head->next == nullptr) { return; } // 리스트가 비어있거나 노드가 하나인 경우
     
     // 버블 정렬을 통해 정렬
     bool isSwaped = true;
     while (isSwaped) {
         Node *p = head; // 현재 노드
-        Node prev = nullptr; // 이전 노드
+        Node *prev = nullptr; // 이전 노드
         isSwaped = false;
 
-        while (p != nullptr && p != nullptr ) {
+        while (p != nullptr && p->next != nullptr ) {
             Node *q = p -> next;
-            int area1 = p->w * q->h;
+            int area1 = p->w * p->h;
             int area2 = q->w * q->h;
 
             // 앞선 노드의 넓이가 뒷 노드 보다 넓다면 노드 스왑
             if (area1 > area2) {
                 if (prev == nullptr) {
-                    q = head;
+                    head = q;
                 }
                 else {
                     prev->next = q;
@@ -79,23 +79,39 @@ void sort_by_area() {
                 p->next = q->next;
                 q->next = p;
                 isSwaped = true;
+                
+                prev = q;
             }
+            else {
+                prev = p;
+                p = p->next;
+            }
+
         }
     }
 }
 
-remove_rects(min_w, min_h){
+void remove_rects(int min_w, int min_h){
+    if (head == nullptr) { return; } 
     Node *p = head;
+    Node *prev = nullptr;
+    
     while (p != nullptr) {
-        if (p->w < min_w && p->h < min_h) {
-            if(p == head) {
-                head = p;
+        if (p->w < min_w || p->h < min_h) {
+            if(prev == nullptr) { // head를 삭제하는 경우
+                head = p->next;
             }
-            else {
-                
+            else { // 그 외 일반적인 경우
+                prev->next = p->next;
             }
+            Node *tmp = p;
+            p = p->next;
+            delete tmp; // 삭제 후 노드 메모리 해제 
         }
-        p = p->next;
+        else {
+            prev = p;
+            p = p->next;
+        }
     }
 }
 
