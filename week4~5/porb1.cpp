@@ -53,28 +53,31 @@ void read_file() {
 }
 
 void sort_by_area() { 
-    if (head == nullptr || head->next == nullptr) { retrun;} // 리스트가 비어있거나 노드가 하나인 경우
+    if (head == nullptr || head->next == nullptr) { retrun; } // 리스트가 비어있거나 노드가 하나인 경우
     
     // 버블 정렬을 통해 정렬
     bool isSwaped = true;
     while (isSwaped) {
-        Node *p1 = head; // 현재 노드
+        Node *p = head; // 현재 노드
         Node prev = nullptr; // 이전 노드
         isSwaped = false;
 
-        while (p1 != nullptr && p1 != nullptr ) {
-            Node *p2 = p1 -> next;
-            int area1 = p1->w * p2->h;
-            int area2 = p2->w * p2->h;
+        while (p != nullptr && p != nullptr ) {
+            Node *q = p -> next;
+            int area1 = p->w * q->h;
+            int area2 = q->w * q->h;
             if (area1 > area2) {
                 if (prev == nullptr) {
-                    p2 = head;
-                    p1->next = p2->next;
-                    p2->next = p1;
+                    q = head;
                 }
                 else {
-                    
+                    prev->next = q;
                 }
+
+                p->next = q->next;
+                q->next = p;
+
+                isSwaped = true;
             }
         }
     }
