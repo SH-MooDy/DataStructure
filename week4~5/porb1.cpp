@@ -50,6 +50,7 @@ void read_file() {
             p->next = q; // 마지막 노드의 next를 새 노드로 설정
         }
     }
+    infile.close();
 }
 
 void sort_by_area() { 
