@@ -19,6 +19,7 @@ void print_list() {
         cout << p->word << ": " << p->count << endl;
         p = p->next;
     }
+    cout << wordTotal;
 }
 
 // 중복 여부 확인 함수
@@ -57,7 +58,7 @@ void read_file() {
                 }
                 p->next = q; // 마지막 노드의 새 노드를 q로 설정
             }
-
+            wordTotal++;
         }
     }
     infile.close();
