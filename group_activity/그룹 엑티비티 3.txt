@@ -1,0 +1,103 @@
+1. 
+Node *concatenate(Node *first, Node *second) {
+    // 첫 번째 리스트가 비어 있으면 두 번째 리스트를 반환
+    if (first == nullptr) {
+        return second;
+    }
+    
+    // 첫 번째 리스트의 마지막 노드를 찾음
+    Node *current = first;
+    while (current->next != nullptr) {
+        current = current->next;
+    }
+    
+    // 첫 번째 리스트의 마지막 노드의 next에 두 번째 리스트 연결
+    current->next = second;
+    
+    // 첫 번째 리스트의 head 반환
+    return first;
+}
+
+2.
+-첫 번째 노드가 3의 배수일 경우: 
+ 함수는 처음부터 p->next를 검사하고 있으므로 
+ 첫 번째 노드가 3의 배수인 경우에는 이 노드를 삭제하지 않는다. 
+ 즉, p->next->data를 검사하기 때문에 첫 번째 노드는 무시된다.
+-잘못된 null 포인터 접근: 
+ 연결리스트가 짧거나 3의 배수를 찾지 못했을 때, p->next->data에 접근하면 
+ p->next가 nullptr일 수 있다. 이 경우, p->next->data를 참조하면 
+ null pointer dereference 문제가 발생하여 프로그램이 충돌할 수 있다.
+-3의 배수가 없는 경우: 
+ 연결리스트에 3의 배수가 없을 때, 이 사실을 확인하고 안전하게 함수를 종료해야 한다. 
+ 하지만 현재 코드는 이를 제대로 처리하지 않고 있다
+ 
+ 수정된 코드
+ struct Node {
+    int data;
+    Node *next;
+};
+
+// 첫 번째 노드가 3의 배수인 경우를 처리할 수 있도록 head를 포인터로 전달
+void remove_multiple_three(Node **head) {
+    // 리스트가 비어있을 경우 처리
+    if (*head == nullptr) {
+        return;
+    }
+
+    // 첫 번째 노드가 3의 배수인 경우
+    if ((*head)->data % 3 == 0) {
+        Node *temp = *head;
+        *head = (*head)->next; // head를 다음 노드로 변경
+        delete temp;           // 기존 첫 번째 노드를 삭제
+        return;
+    }
+
+    // 그 외의 경우 처리
+    Node *p = *head;
+    while (p->next != nullptr && p->next->data % 3 != 0) {
+        p = p->next;
+    }
+
+    // 3의 배수를 찾지 못한 경우
+    if (p->next == nullptr) {
+        return;
+    }
+
+    // 3의 배수인 노드를 삭제
+    Node *temp = p->next;
+    p->next = p->next->next;
+    delete temp;
+}
+
+수정 내용 요약
+  -head가 3의 배수인 경우를 처리할 수 있도록 head를 이중 포인터로 전달.
+  -p->next->data에 접근하기 전에 p->next가 nullptr인지 확인.
+  -삭제할 노드를 안전하게 삭제하기 위해 delete 사용.
+
+3. 해당 func함수는 연결리스트를 역순으로 뒤집으려 한다.
+이 함수는 연결리스트를 뒤집는 과정 자체는 잘 구현되었지만, 
+함수가 끝난 후에 새로운 head를 반환하지 않기 때문에 의도한 대로 
+리스트가 역순으로 바뀌지 않은 상태로 남는다. 
+함수가 끝나면 prev 포인터가 역순으로 바뀐 리스트의 첫 번째 노드를 가리키게 되는데, 
+이 값을 외부에서 사용해야 제대로 역순이 적용된 리스트를 사용할 수 있다. 
+그러나 현재 함수는 이를 반환하지 않고 있어 문제가 발생한다.
+
+따라서 다음과 같이 변경된 연결리스트를 반환하는 방법으로 수정
+Node* func(Node* head) {
+    Node* prev = nullptr;
+    Node* current = head;
+    Node* next;
+    
+    while (current != nullptr) {
+        next = current->next;   // 다음 노드 저장
+        current->next = prev;   // 현재 노드의 next를 이전 노드로 변경
+        prev = current;         // prev를 현재 노드로 업데이트
+        current = next;         // current를 다음 노드로 이동
+    }
+    
+    return prev;  // prev는 역순으로 뒤집힌 리스트의 새로운 head
+}
+4.
+5.
+6.
+7. 2 1 4 3 6 5 7
