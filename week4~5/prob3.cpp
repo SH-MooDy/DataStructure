@@ -34,6 +34,8 @@ void handle_calc(char name, int x);
 void clear_poly(Polynomial &p);
 void insert_polynomial(Polynomial p);
 void handle_add(char name, int c, int e);
+void addpoly(Polynomial pol, char name1, char name2);
+void multiplypoly(Polynomial po1, char name1, char name2);
 
 int main(){
     string command, arg1, arg2, arg3;
@@ -56,6 +58,16 @@ int main(){
         else if (command == "add") {
             cin >> arg1 >> arg2 >> arg3;
             handle_add(arg1[0], stoi(arg2), stoi(arg3));
+        }
+        else if (command == "addpoly") {
+            cin >> arg1 >> arg2 >> arg3;
+            Polynomial pol(arg1[0]);
+            addpoly(pol, arg2[0], arg3[0]);
+        }
+        else if (command == "multiplypoly") {
+            cin >> arg1 >> arg2 >> arg3;
+            Polynomial pol(arg1[0]);
+            multiplypoly(pol, arg2[0], arg3[0]);
         }
         else if (command == "exit")
             break;
@@ -101,24 +113,40 @@ vector<Polynomial>::iterator find_poly(char name) {
 }
 
 void print_term(Term *pTerm) {
-    cout << pTerm->coef << "x^" << pTerm->expo;
+    if (pTerm->expo == 0)
+        cout << pTerm->coef; // 지수가 0이면 상수만 출력
+    else if (pTerm->expo == 1)
+        cout << pTerm->coef << "x"; // 지수가 1이면 x만 출력
+    else
+        cout << pTerm->coef << "x^" << pTerm->expo; // 일반적인 경우
 }
 
 void print_poly(Polynomial &p) {
     cout << p.name << " = ";
     Term *t = p.first;
-    while(t!=nullptr) {
+
+    // 첫 번째 항은 따로 출력 (첫 항의 앞에 + 기호가 붙지 않게 하기 위함)
+    if (t != nullptr) {
         print_term(t);
-        cout << "+";
         t = t->next;
     }
+
+    // 나머지 항들은 앞에 +를 붙여서 출력
+    while (t != nullptr) {
+        if(t->coef >= 0){
+            cout << "+";
+        }
+        print_term(t);
+        t = t->next;
+    }
+    
     cout << endl;
 }
 
 void handle_print(char name) {
     auto it = find_poly(name);
-    if (it==polys.end())
-    cout << "No such polynimial exists." << endl;
+    if (it == polys.end())
+        cout << "No such polynomial exists." << endl;
     else
         print_poly(*it);
 }
@@ -131,7 +159,7 @@ int calc_term(Term *term, int x) { // 하나의 항의 값을 계산하는 함�
     return result;
 }
 
-int clac_poly(Polynomial poly, int x) { // 다항식의 값을 계산하는 함수
+int calc_poly(Polynomial poly, int x) { // 다항식의 값을 계산하는 함수
     int result = 0;
     Term *t = poly.first;
     while(t != nullptr) {
@@ -159,7 +187,7 @@ void clear_poly(Polynomial &p) {
     p.first = nullptr;
 }
 
-void insert_Polynomial(Polynomial p) {
+void insert_polynomial(Polynomial p) {
     auto it = find_poly(p.name);
     if (it == polys.end()) {
         polys.push_back(p);
@@ -177,4 +205,36 @@ void handle_add(char name, int c, int e) {
         return;
     }
     add_term(*it, c, e);
+}
+
+void addpoly(Polynomial pol, char name1, char name2) {
+    auto it1 = find_poly(name1); 
+    auto it2 = find_poly(name2);
+
+    if (it1 == polys.end() || it2 == polys.end()) {
+        return;
+    }
+
+    Term *p1 = it1->first;
+    Term *p2 = it2->first;
+
+    // 첫번째 다항식의 모든 항을 새로운 다항식에 추가
+    while(p1 != nullptr) {
+        add_term(pol, p1->coef, p1->expo);
+        p1 = p1->next;
+    }
+
+    // 두번째 다항식의 모든 항을 새로운 다항식에 추가
+    while(p2 != nullptr) {
+        add_term(pol, p2->coef, p2->expo);
+        p2 = p2->next;
+    }
+
+    // 결과 다항식을 벡터에 삽입
+    insert_polynomial(pol);
+
+}
+
+void multiplypoly(Polynomial po1, char name1, char name2) {
+
 }
