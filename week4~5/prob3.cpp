@@ -230,11 +230,29 @@ void addpoly(Polynomial pol, char name1, char name2) {
         p2 = p2->next;
     }
 
-    // 결과 다항식을 벡터에 삽입
     insert_polynomial(pol);
 
 }
 
-void multiplypoly(Polynomial po1, char name1, char name2) {
+void multiplypoly(Polynomial pol, char name1, char name2) {
+    auto it1 = find_poly(name1); 
+    auto it2 = find_poly(name2);
 
+    if (it1 == polys.end() || it2 == polys.end()) {
+        return;
+    }
+    
+    Term *p1 = it1->first;
+
+    // 이중 반복문으로 각항을 곱한 후 추가
+    while(p1 != nullptr) {
+            Term *p2 = it2->first;
+        while(p2 != nullptr) {
+            add_term(pol, p1->coef * p2->coef, p1->expo + p2->expo);
+            p2 = p2->next;
+        }
+        p1 = p1->next;
+    }
+
+    insert_polynomial(pol);
 }
