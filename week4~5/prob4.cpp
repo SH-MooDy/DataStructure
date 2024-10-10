@@ -1,5 +1,4 @@
 #include<iostream>
-#include<string>
 using namespace std;
 
 struct Node {
@@ -15,7 +14,6 @@ Node *head = nullptr, *tail = nullptr; // 2중 연결리스트의 처음과 마�
 
 int main() {
     int n;
-
     string word;
     cin >> n;
     for(int i=0; i<n; i++) {
@@ -30,7 +28,7 @@ int main() {
 }
 
 void ordered_insert(string item) {
-    // head와 tail이 가리키는 2중 연결리스트에 문자열들이 사전식 순서로 정렬된 순서를 유지하도록 새로운 문자열 item을 삽입한다.
+    /* head와 tail이 가리키는 2중 연결리스트에 문자열들이 사전식 순서로 정렬된 순서를 유지하도록 새로운 문자열 item을 삽입한다. */
     Node *p = head;
 
     Node *new_node = new Node;
@@ -67,15 +65,27 @@ void ordered_insert(string item) {
     }
 }
 
+
 void remove_dup() {
     /* 2중 연결리스트에 저정된 문자열들 중에서 모든 중복된 문자열을 찾아 하나만 남기고 제거한다. */
+    Node *p = tail;
+
+    if(head == nullptr && p == nullptr) {
+        return;
+    }
+
+    while(p != nullptr) {
+        
+    }
+
+
 }
 
 void print_list_twice() {
     Node *p = head;
     while(p != nullptr) {
         cout << p->data << " ";
-        p = p->next;
+        p = p->nxet;
     }
     cout << endl;
 

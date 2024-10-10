@@ -122,7 +122,7 @@ void print_term(Term *pTerm) {
 }
 
 void print_poly(Polynomial &p) {
-    cout << p.name << " = ";
+    cout << p.name << "=";
     Term *t = p.first;
 
     // 첫 번째 항은 따로 출력 (첫 항의 앞에 + 기호가 붙지 않게 하기 위함)
