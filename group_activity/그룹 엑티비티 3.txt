@@ -97,7 +97,8 @@ Node* func(Node* head) {
     
     return prev;  // prev는 역순으로 뒤집힌 리스트의 새로운 head
 }
-4.
-5.
+4. 마지막 노드 삭제하기
+
+5. 
 6.
 7. 2 1 4 3 6 5 7
