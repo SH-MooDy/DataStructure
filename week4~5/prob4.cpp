@@ -56,7 +56,7 @@ void ordered_insert(string item) {
             head->prev = new_node;
             head = new_node;
         }
-        else { // 중간에 삽입하는 경우
+        else { // 삽입위치가 일반적인 경우
             new_node->prev = p->prev;
             new_node->next = p;
             p->prev->next = new_node;
@@ -67,25 +67,34 @@ void ordered_insert(string item) {
 
 
 void remove_dup() {
-    /* 2중 연결리스트에 저정된 문자열들 중에서 모든 중복된 문자열을 찾아 하나만 남기고 제거한다. */
-    Node *p = tail;
+    /* 2중 연결리스트에 저장된 문자열들 중에서 모든 중복된 문자열을 찾아 하나만 남기고 제거한다. */
+    Node *p = head;
 
-    if(head == nullptr && p == nullptr) {
+    if (head == nullptr) { // 리스트가 비어있는 경우
         return;
     }
 
-    while(p != nullptr) {
-        
+    while (p != nullptr && p->next != nullptr) {
+        if (p->data == p->next->data) { // 중복된 문자열이 발견된 경우
+            Node *dup = p->next;  
+            p->next = dup->next;
+            
+            if (dup->next != nullptr) {
+                dup->next->prev = p; // 중복 노드의 다음 노드가 있는 경우, 그 노드의 이전 노드를 p로 지정
+            } else {
+                tail = p;  
+            }
+        } else {
+            p = p->next;  
+        }
     }
-
-
 }
 
 void print_list_twice() {
     Node *p = head;
     while(p != nullptr) {
         cout << p->data << " ";
-        p = p->nxet;
+        p = p->next;
     }
     cout << endl;
 
