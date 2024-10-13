@@ -99,6 +99,142 @@ Node* func(Node* head) {
 }
 4. 마지막 노드 삭제하기
 
-5. 
+5. #include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node *next;
+
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+class CircularLinkedList {
+private:
+    Node *head;
+
+public:
+    CircularLinkedList() : head(nullptr) {}
+
+    // 리스트에 새로운 노드를 추가하는 함수
+    void append(int value) {
+        Node *newNode = new Node(value);
+        if (head == nullptr) {
+            head = newNode;
+            newNode->next = head; // 자기 자신을 가리키도록 설정
+        } else {
+            Node *temp = head;
+            while (temp->next != head) {
+                temp = temp->next; // 마지막 노드까지 이동
+            }
+            temp->next = newNode; // 마지막 노드의 next를 새로운 노드로 설정
+            newNode->next = head; // 새로운 노드의 next를 head로 설정
+        }
+    }
+
+    // 리스트의 모든 노드를 출력하는 함수
+    void printList() {
+        if (head == nullptr) {
+            cout << "List is empty." << endl;
+            return;
+        }
+        Node *temp = head;
+        do {
+            cout << temp->data << " ";
+            temp = temp->next;
+        } while (temp != head);
+        cout << endl;
+    }
+
+    // 리스트에서 노드를 제거하는 함수
+    void deleteNode(int value) {
+        if (head == nullptr) {
+            cout << "List is empty." << endl;
+            return;
+        }
+
+        Node *current = head;
+        Node *prev = nullptr;
+
+        // 리스트를 순회하며 노드를 찾음
+        do {
+            if (current->data == value) {
+                // 삭제할 노드가 head인 경우
+                if (current == head) {
+                    // head가 유일한 노드일 경우
+                    if (current->next == head) {
+                        delete head;
+                        head = nullptr;
+                    } else {
+                        // head를 다음 노드로 변경
+                        prev = head;
+                        while (prev->next != head) {
+                            prev = prev->next; // 마지막 노드 찾기
+                        }
+                        prev->next = head->next; // 마지막 노드의 next를 새 head로 설정
+                        Node *temp = head;
+                        head = head->next; // head 변경
+                        delete temp; // 삭제
+                    }
+                } else {
+                    prev->next = current->next; // 현재 노드의 이전 노드가 현재 노드의 다음 노드를 가리키게 설정
+                    delete current; // 현재 노드 삭제
+                }
+                return;
+            }
+            prev = current;
+            current = current->next;
+        } while (current != head);
+        
+        cout << "Node with value " << value << " not found." << endl;
+    }
+
+    // 리스트의 모든 노드를 삭제하는 함수
+    void clear() {
+        if (head == nullptr) return;
+        Node *current = head;
+        Node *temp;
+        do {
+            temp = current;
+            current = current->next;
+            delete temp;
+        } while (current != head);
+        head = nullptr; // head를 nullptr로 설정
+    }
+
+    ~CircularLinkedList() {
+        clear(); // 소멸자에서 리스트를 지웁니다.
+    }
+};
+
+int main() {
+    CircularLinkedList cll;
+    cll.append(1);
+    cll.append(2);
+    cll.append(3);
+    cll.append(4);
+
+    cout << "Circular Linked List: ";
+    cll.printList();
+
+    cll.deleteNode(2);
+    cout << "After deleting node 2: ";
+    cll.printList();
+
+    cll.deleteNode(1);
+    cout << "After deleting node 1: ";
+    cll.printList();
+
+    cll.deleteNode(3);
+    cout << "After deleting node 3: ";
+    cll.printList();
+
+    cll.deleteNode(4);
+    cout << "After deleting node 4: ";
+    cll.printList();
+
+    return 0;
+}
+
 6.
 7. 2 1 4 3 6 5 7
