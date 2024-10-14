@@ -28,9 +28,7 @@ void read_file() {
     infile.ignore(); // 개행문자 무시
 
     for(int i=0; i < num; i++) {
-        getline(infile, line);
-        stringstream ss(line);
-        ss >> x >> y >> w >> h; // 스트링스트림으로 하나씩 받아오기
+        infile >> x >> y >> w >> h;  
 
         Node *q = new Node;
         q->x = x;
