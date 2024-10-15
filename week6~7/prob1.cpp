@@ -127,15 +127,22 @@ void print_song_directory() {
 int main() {
     load_songs(datafilename);
 
-    string command, arguments;
+    string input, command, option, arguments;
     while(1) {
         cout << "$ ";
-        cin >> command;
+        getline(cin, input);
+        stringstream ss(input);
+        ss >> command >> option;
 
         if (command == "exit") { break; }
 
         if(command == "list") {
-        
+            if(option == "-a") {
+                cout << "정상출력" << endl;
+            }
+            else {
+                print_song_directory();
+            }
         }
         else if(command == "add") {
 
