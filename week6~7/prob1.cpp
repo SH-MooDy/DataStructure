@@ -127,18 +127,18 @@ void print_song_directory() {
 int main() {
     load_songs(datafilename);
 
-    string input, command, option, arguments;
+    string input, command, arguments1, arguments2;
     while(1) {
         cout << "$ ";
         getline(cin, input);
         stringstream ss(input);
-        ss >> command >> option;
+        ss >> command >> arguments1 >> arguments2;
 
         if (command == "exit") { break; }
 
         if(command == "list") {
-            if(option == "-a") {
-                cout << "정상출력" << endl;
+            if(arguments1 == "-a") {
+                print_artist_directory();
             }
             else {
                 print_song_directory();
@@ -148,7 +148,12 @@ int main() {
 
         }
         else if(command == "find") {
+            if(arguments1 == "-a") {
+                
+            }
+            else {
 
+            }
         }
         else if(command == "play") {
 
