@@ -1,5 +1,70 @@
 1.  j는 중복이 제거된 노드의 수를 저장. 즉, 중복되지 않은 원소의 개수를 세는 역할
-    s1 실행 횟수 최댓값: 
-    s2 실행 횟수 최댓값: 
+    문장 (s1): t1->data가 t2->data와 다를 때 실행. 
+    이 조건은 중복된 값을 발견할 때 실행되므로, 중복이 없는 경우 최대 n-1번 실행될 수 있다. 
+    따라서 최댓값은 n-1번
+    문장 (s2): (s1)이 참일 때 실행되므로, 중복되지 않은 값일 때만 실행.
+    이 역시 중복이 없는 경우 n-1번 실행될 수 있다.
 
-2. 
+    따라서 s1과 s2 중복이 없는 경우 최대 n-1번 실행될 수 있다.
+
+2. Node *merge(Node *first, Node *second) {
+    if (first == nullptr && second == nullptr) {
+        return nullptr;
+    }
+
+    if (first == nullptr) {
+        return second;
+    } else if (second == nullptr) {
+        return first;
+    } else {
+        Node *p = first;
+        while (p->next != nullptr) {  // p->next가 nullptr일 때까지 반복
+            p = p->next;
+        }
+        p->next = second;  // 첫 번째 리스트의 마지막 노드가 두 번째 리스트를 가리키도록 함
+        return first;       // 첫 번째 리스트의 시작 노드를 반환
+    }
+}
+
+3.  다음 함수의 역할은 매개변수로 받은 연결리스트에서 음수인 데이터를 가진 노드를 삭제하는 함수이다.
+    그러나 다음 함수의 문제점은 헤드가 음수인 경우가 처리되지 않았고, 마지막 노드가 음수인 경우
+    처리되지 않았다.
+
+    void func(Node *&head) {  // head를 참조로 전달하여 헤드가 삭제될 경우에도 반영되도록 함
+    Node *p = head, *q = nullptr;
+
+    while (p != nullptr) {
+        if (p->data < 0) {
+            if (q == nullptr) {
+                // 헤드가 음수일 경우 처리
+                head = p->next;  // 헤드를 다음 노드로 이동
+                delete p;        // 음수 노드 삭제
+                p = head;        // 새 헤드를 가리킴
+            } else {
+                q->next = p->next;
+                delete p;
+                p = q->next;
+            }
+        } else {
+            q = p;
+            p = p->next;
+        }
+    }
+}
+
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+12.
+13.
+14.
+15.
+16.
+17.
+18.
+19.

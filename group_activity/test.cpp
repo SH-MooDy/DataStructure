@@ -1,21 +1,12 @@
-Node *merge(Node *first, Node *second) {
-    if(Node *first == nullptr && Node *second == nullptr) {
-        return;
-    }
+void func(Node *first, int lower, int upper) {
+    if(first == nullptr) { return; }
 
-    if(Node *first == nullptr) {
-        return second;
-    }
-    else if (Node * second == nullptr) {
-        return first;
-    }
-    else {
-        Node *p = first;
-        while(p != nullptr) {
-            p = p->next;
+    Node *p = first, Node *q = nullptr;
+    while(p->next != nullptr) {
+        if(p->data >= lower && p->data <= upper) {
+            
         }
-        p->next = second;
-        return p;
+        q = p;
+        p = p->next;
     }
-
 }
