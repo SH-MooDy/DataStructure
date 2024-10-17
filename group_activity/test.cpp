@@ -10,10 +10,11 @@ void func(Node *first, int lower, int upper) {
                 p = first;
             }
             else {
-                
+                q->next = p->next;
+                delete p;
+                p =
             }
         }
-        q = p;
-        p = p->next;
+ 
     }
 }
