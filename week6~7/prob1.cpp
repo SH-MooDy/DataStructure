@@ -7,20 +7,19 @@
 #include<string>
 using namespace std;
 
-int id_counter = 0; // 각 Song 객체마다 서로 다른 index를 부여하기 위해서 전역변수 선언
-
+int id_counter = 0;  
 struct Artist; 
-struct Song { // 하나의 노래 정보를 저장하는 구조체  
+struct Song {  
     int index;
     string title, album, mv_url;
     Artist *artist;
     Song() {}
     Song(string ti, Artist *art, string alb, string mv): title(ti), artist(art), album(alb), mv_url(mv) {
-        index = id_counter++; // 생성된 모든 Song 객체에서 유일한 index를 부여함
+        index = id_counter++;  
     }
 };
 
-struct Artist { // 한명의 아티스트 정보를 저장하는 구조체
+struct Artist {  
     string name;
     list<Song *> songs;
     Artist() {}
@@ -28,7 +27,7 @@ struct Artist { // 한명의 아티스트 정보를 저장하는 구조체
 };
 
 
-list<Artist *> artist_directory[256]; // 이름의 첫 문자를 배열 인덱스로 사용
+list<Artist *> artist_directory[256];  
 
 const int SONG_DIRECTORY_SIZE = 10;
 list<Song *> song_directory[SONG_DIRECTORY_SIZE];
@@ -48,7 +47,7 @@ string trim(string str) {
         return "";
 }
 
-vector<string> spilt_line(string &line, char delimeter) {
+vector<string> split_line(string &line, char delimeter) {
     vector<string> tokens;
     stringstream sstream(line);
     string str;
@@ -105,7 +104,7 @@ void load_songs(string filename) {
     string line;
     ifstream songfile(filename);
     while(getline(songfile, line)) {
-        vector<string> tokens = spilt_line(line, ',');
+        vector<string> tokens = split_line(line, ',');
         assert(tokens.size()==4 || tokens.size()==3);  
         if(tokens.size()==4)
             add_song(tokens[0], tokens[1], tokens[2], tokens[3]);
@@ -122,6 +121,20 @@ void print_song_directory() {
             cout << "    " << s->index << ":" << s->title << ", " << s->artist->name << ", " << s->album << ", " << s->mv_url << endl;
         }
     }
+}
+
+vector<Song *> find_songs_by_title() {
+
+}
+
+void save_directory() {
+    ofstream outfile(datafilename);
+    for (auto &songs: song_directory) {
+        for(auto &song: songs) {
+            outfile << song->title << "," << song->artist->name << "," << song->album << "," << song->mv_url << endl;
+        }
+    }
+    outfile.close();
 }
 
 int main() {
@@ -145,9 +158,30 @@ int main() {
             }
         }
         else if(command == "add") {
-
+            string title, artist, album = "", mv_url = "";
+            cout << "Title: ";
+            getline(cin, title);
+            cout << "Artist: ";
+            getline(cin, artist);
+            cout << "Album: ";
+            getline(cin, album);
+            cout << "MV url: ";
+            getline(cin, mv_url);
+            add_song(title, artist, album, mv_url);
         }
         else if(command == "find") {
+            if(arguments1 == "-a") {
+                
+            }
+            else {
+            
+            }
+        }
+        else if(command == "play") {
+            
+        }
+        else if(command == "remove") {
+            
             if(arguments1 == "-a") {
                 
             }
@@ -155,14 +189,8 @@ int main() {
 
             }
         }
-        else if(command == "play") {
-
-        }
-        else if(command == "remove") {
-
-        }
         else if(command == "save") {
-
+            save_directory();
         }
     }
     return 0;
