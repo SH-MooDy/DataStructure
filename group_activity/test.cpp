@@ -1,20 +1,11 @@
-void func(Node *first, int lower, int upper) {
-    if(first == nullptr) { return; }
+#include<iostream>
+using namespace std;
 
-    Node *p = first, Node *q = nullptr;
-    while(p->next != nullptr) {
-        if(p->data >= lower && p->data <= upper) {
-            if(p == first) {
-                first = p->next;
-                delete p;
-                p = first;
-            }
-            else {
-                q->next = p->next;
-                delete p;
-                p =
-            }
-        }
- 
-    }
+int main(){
+    double a = 0.75;
+unsigned int *pA = (unsigned int*)&a;
+printf("%08x\n", *(pA+1));
+printf("%08x\n", *pA);
+    printf("%d", c);
+    return 0;
 }
