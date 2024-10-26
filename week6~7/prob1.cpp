@@ -66,6 +66,8 @@ Artist *find_artist(string name) {
     return nullptr;
 }
 
+Song *find_song
+
 void print_artist(Artist *p) {
     cout << p->name << ":" << endl;
     for(auto s: p->songs) {
@@ -123,10 +125,6 @@ void print_song_directory() {
     }
 }
 
-vector<Song *> find_songs_by_title() {
-
-}
-
 void save_directory() {
     ofstream outfile(datafilename);
     for (auto &songs: song_directory) {
@@ -146,6 +144,7 @@ int main() {
         getline(cin, input);
         stringstream ss(input);
         ss >> command >> arguments1 >> arguments2;
+        //cout << command << " " <<  arguments1 << " " << arguments2 << endl;
 
         if (command == "exit") { break; }
 
@@ -170,15 +169,20 @@ int main() {
             add_song(title, artist, album, mv_url);
         }
         else if(command == "find") {
+
             if(arguments1 == "-a") {
-                
+                Artist *artist = find_artist(arguments2);
+
+                if (artist != nullptr) {  // artist가 존재하는지 확인
+                    print_artist(artist);
+                } 
+                else {
+                    cout << "Artist not found." << endl; 
+                }
             }
             else {
-            
+                
             }
-        }
-        else if(command == "play") {
-            
         }
         else if(command == "remove") {
             
