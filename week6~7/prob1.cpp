@@ -163,14 +163,14 @@ void remove_song_by_index(int index) {
 
             // 해당 노래를 아티스트의 노래 리스트에서도 삭제
             Artist *artist = (*it)->artist;
-            artist->songs.remove(*it); // 아티스트의 노래 리스트에서 삭제
+            artist->songs.remove(*it); 
             
             // 노래 삭제
-            delete *it; // 메모리 해제
-            it = song_list.erase(it); // song_directory에서 삭제
-            break; // 하나만 삭제하므로 루프 종료
+            delete *it; 
+            it = song_list.erase(it); 
+            break; 
         } else {
-            ++it; // 다음 요소로 이동
+            ++it; 
         }
     }
 }
@@ -182,6 +182,7 @@ void remove_song_by_artist(string name) {
         cout << "Want to remove \"" << a->name << "\"? (yes/no): ";
         string want_to_delete;
         cin >> want_to_delete;
+        cin.ignore();
 
         if (want_to_delete == "yes" || want_to_delete == "y") {
             cout << "Artist \"" << a->name << "\" deleted." << endl;
@@ -191,26 +192,22 @@ void remove_song_by_artist(string name) {
                 Song *targeted_song = *it;
 
                 // song_directory에서도 삭제
-                int group_index = targeted_song->index % SONG_DIRECTORY_SIZE; // 올바른 group_index 사용
+                int group_index = targeted_song->index % SONG_DIRECTORY_SIZE;
                 list<Song *> &song_list = song_directory[group_index];
 
-                // 아티스트의 노래 리스트에서 삭제
-                a->songs.erase(it); // 아티스트의 노래 리스트에서 삭제
-                song_list.remove(targeted_song); // song_directory에서도 삭제
-                
-                // 노래 삭제
-                delete targeted_song; // 메모리 해제
-                it = a->songs.erase(it); // 아티스트의 노래 리스트에서 삭제 후 iterator 업데이트
+                // song_directory에서 노래 삭제
+                song_list.remove(targeted_song);
+                it = a->songs.erase(it);
+                delete targeted_song;
             }
 
             // 아티스트 삭제
             list<Artist *> &artist_list = artist_directory[(unsigned char)a->name[0]];
-            artist_list.remove(a); // 아티스트 리스트에서 삭제
-            delete a; // 아티스트 메모리 해제
+            artist_list.remove(a); 
+            delete a; 
         }
     }
 }
-
 
 void save_directory() {
     ofstream outfile(datafilename);
