@@ -66,12 +66,40 @@ Artist *find_artist(string name) {
     return nullptr;
 }
 
-Song *find_song
+vector<Artist *> find_artists_by_started_name(string name) {
+    vector<Artist *> artists;
+    list<Artist *> artist_list = artist_directory[(unsigned char)name[0]];
+    for (auto it = artist_list.begin(); it != artist_list.end(); it++) {
+        if((*it)->name.find(name) != string::npos) {
+            artists.push_back(*it);
+        }
+    }
+    return artists;
+}
+
+vector<Song *> find_songs(string song) {
+    vector<Song *> songs;
+    for(int i=0; i<SONG_DIRECTORY_SIZE; i++) {
+        list<Song *> &song_list = song_directory[i];
+        for(auto &s: song_list) {
+            if(s->title.find(song) != string::npos) {
+                songs.push_back(s);
+            }
+        }
+    }
+    return songs;
+}
 
 void print_artist(Artist *p) {
     cout << p->name << ":" << endl;
     for(auto s: p->songs) {
         cout << "    " << s->index << ":" << s->title << ", " << s->album << ", " << s->mv_url << endl;
+    }
+}
+
+void print_found_songs(vector<Song *> songs) {
+    for(auto s : songs) {
+        cout << "    " << s->index << ":" << s->title << ", " << s->artist->name << ", " << s->album << ", " << s->mv_url << endl;
     }
 }
 
@@ -125,6 +153,65 @@ void print_song_directory() {
     }
 }
 
+void remove_song_by_index(int index) {
+    int group_index = index % SONG_DIRECTORY_SIZE;
+    list<Song *> &song_list = song_directory[group_index];
+
+    for (auto it = song_list.begin(); it != song_list.end(); ) {
+        if ((*it)->index == index) {
+            cout << index << ", " << (*it)->title << ", " << (*it)->artist->name << " is deleted from the list." << endl;
+
+            // 해당 노래를 아티스트의 노래 리스트에서도 삭제
+            Artist *artist = (*it)->artist;
+            artist->songs.remove(*it); // 아티스트의 노래 리스트에서 삭제
+            
+            // 노래 삭제
+            delete *it; // 메모리 해제
+            it = song_list.erase(it); // song_directory에서 삭제
+            break; // 하나만 삭제하므로 루프 종료
+        } else {
+            ++it; // 다음 요소로 이동
+        }
+    }
+}
+
+void remove_song_by_artist(string name) {
+    vector<Artist *> artists = find_artists_by_started_name(name);
+
+    for (auto &a : artists) {
+        cout << "Want to remove \"" << a->name << "\"? (yes/no): ";
+        string want_to_delete;
+        cin >> want_to_delete;
+
+        if (want_to_delete == "yes" || want_to_delete == "y") {
+            cout << "Artist \"" << a->name << "\" deleted." << endl;
+
+            // 해당 아티스트의 노래들을 삭제
+            for (auto it = a->songs.begin(); it != a->songs.end(); ) {
+                Song *targeted_song = *it;
+
+                // song_directory에서도 삭제
+                int group_index = targeted_song->index % SONG_DIRECTORY_SIZE; // 올바른 group_index 사용
+                list<Song *> &song_list = song_directory[group_index];
+
+                // 아티스트의 노래 리스트에서 삭제
+                a->songs.erase(it); // 아티스트의 노래 리스트에서 삭제
+                song_list.remove(targeted_song); // song_directory에서도 삭제
+                
+                // 노래 삭제
+                delete targeted_song; // 메모리 해제
+                it = a->songs.erase(it); // 아티스트의 노래 리스트에서 삭제 후 iterator 업데이트
+            }
+
+            // 아티스트 삭제
+            list<Artist *> &artist_list = artist_directory[(unsigned char)a->name[0]];
+            artist_list.remove(a); // 아티스트 리스트에서 삭제
+            delete a; // 아티스트 메모리 해제
+        }
+    }
+}
+
+
 void save_directory() {
     ofstream outfile(datafilename);
     for (auto &songs: song_directory) {
@@ -169,28 +256,36 @@ int main() {
             add_song(title, artist, album, mv_url);
         }
         else if(command == "find") {
-
             if(arguments1 == "-a") {
-                Artist *artist = find_artist(arguments2);
-
-                if (artist != nullptr) {  // artist가 존재하는지 확인
-                    print_artist(artist);
-                } 
+                vector<Artist *> artists = find_artists_by_started_name(arguments2);
+                if(!artists.empty()){
+                    cout << "Found:" << endl;
+                    for(auto a : artists) {
+                        print_artist(a);
+                    }
+                }
                 else {
-                    cout << "Artist not found." << endl; 
+                    cout << "Not found" << endl;
                 }
             }
             else {
-                
+                vector<Song *> songs = find_songs(arguments1);
+                if(!songs.empty()){
+                    cout << "Found:" << endl;
+                    print_found_songs(songs);
+                }
+                else {
+                    cout << "Not found" << endl;
+                }
             }
         }
         else if(command == "remove") {
             
             if(arguments1 == "-a") {
-                
+                remove_song_by_artist(arguments2);
             }
             else {
-
+                remove_song_by_index(stoi(arguments1));
             }
         }
         else if(command == "save") {
