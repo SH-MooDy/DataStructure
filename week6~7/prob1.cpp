@@ -161,11 +161,11 @@ void remove_song_by_index(int index) {
         if ((*it)->index == index) {
             cout << index << ", " << (*it)->title << ", " << (*it)->artist->name << " is deleted from the list." << endl;
 
-            // ÇØ´ç ³ë·¡¸¦ ¾ÆÆ¼½ºÆ®ÀÇ ³ë·¡ ¸®½ºÆ®¿¡¼­µµ »èÁ¦
+            // í•´ë‹¹ ë…¸ëž˜ë¥¼ ì•„í‹°ìŠ¤íŠ¸ì˜ ë…¸ëž˜ ë¦¬ìŠ¤íŠ¸ì—ì„œë„ ì‚­ì œ
             Artist *artist = (*it)->artist;
             artist->songs.remove(*it); 
             
-            // ³ë·¡ »èÁ¦
+            // ë…¸ëž˜ ì‚­ì œ
             delete *it; 
             it = song_list.erase(it); 
             break; 
@@ -187,21 +187,21 @@ void remove_song_by_artist(string name) {
         if (want_to_delete == "yes" || want_to_delete == "y") {
             cout << "Artist \"" << a->name << "\" deleted." << endl;
 
-            // ÇØ´ç ¾ÆÆ¼½ºÆ®ÀÇ ³ë·¡µéÀ» »èÁ¦
+            // í•´ë‹¹ ì•„í‹°ìŠ¤íŠ¸ì˜ ë…¸ëž˜ë“¤ì„ ì‚­ì œ
             for (auto it = a->songs.begin(); it != a->songs.end(); ) {
                 Song *targeted_song = *it;
 
-                // song_directory¿¡¼­µµ »èÁ¦
+                // song_directoryì—ì„œë„ ì‚­ì œ
                 int group_index = targeted_song->index % SONG_DIRECTORY_SIZE;
                 list<Song *> &song_list = song_directory[group_index];
 
-                // song_directory¿¡¼­ ³ë·¡ »èÁ¦
+                // song_directoryì—ì„œ ë…¸ëž˜ ì‚­ì œ
                 song_list.remove(targeted_song);
                 it = a->songs.erase(it);
                 delete targeted_song;
             }
 
-            // ¾ÆÆ¼½ºÆ® »èÁ¦
+            // ì•„í‹°ìŠ¤íŠ¸ ì‚­ì œ
             list<Artist *> &artist_list = artist_directory[(unsigned char)a->name[0]];
             artist_list.remove(a); 
             delete a; 
