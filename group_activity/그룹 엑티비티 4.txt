@@ -7,7 +7,8 @@
 
     따라서 s1과 s2 중복이 없는 경우 최대 n-1번 실행될 수 있다.
 
-2. Node *merge(Node *first, Node *second) {
+2. // 정렬된 상태로 저장되도록 수정하기 
+ Node *merge(Node *first, Node *second) {
     if (first == nullptr && second == nullptr) {
         return nullptr;
     }

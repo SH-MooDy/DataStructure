@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 void removeNodesInRange(Node *&head, int lower, int upper) {
     Node *p = head, *q = nullptr;
 
@@ -26,16 +25,3 @@ void removeNodesInRange(Node *&head, int lower, int upper) {
         q->next = p;
     }
 }
-=======
-#include<iostream>
-using namespace std;
-
-int main(){
-    double a = 0.75;
-unsigned int *pA = (unsigned int*)&a;
-printf("%08x\n", *(pA+1));
-printf("%08x\n", *pA);
-    printf("%d", c);
-    return 0;
-}
->>>>>>> 7b03cc87e9ef7e81379aeeb3d4be911e87388e5e

@@ -12,6 +12,7 @@
         "list": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
-    "terminal.integrated.scrollback": 10000  // 추가된 항목
+    "terminal.integrated.scrollback": 10000,
+    "CodeGPT.apiKey": "CodeGPT Plus Beta" // 추가된 항목
     
 }
