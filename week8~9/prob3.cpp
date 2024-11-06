@@ -1,7 +1,6 @@
 #include<iostream>
 using namespace std;
-
-const int MAX_CAPACITY = 100000;
+const int MAX_CAPACITY = 1000000;
 
 class Stack {
 private:
@@ -45,23 +44,6 @@ public:
         return count;
     }
 };
-
 int main() {
-    int N;
-    cin >> N;
-
-    Stack s1;
-
-    for(int i=0; i<N; i++) {
-        int num;
-        cin >> num;
-
-        while(!s1.empty() && s1.top() <= num ) {
-            s1.pop();
-        }
-
-        s1.push(num);
-        cout << s1.size() << " ";
-    }
     return 0;
 }
