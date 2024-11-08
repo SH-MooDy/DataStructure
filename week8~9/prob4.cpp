@@ -11,6 +11,7 @@ const int VISITED_IMAGE = 2; // 방문한 이미지 픽셀
 const int BACKTRACKED_IMAGE = 3; // 방문헀다가 되돌아 나온 이미지 픽셀
 
 int input_IMG[MAX_SIZE][MAX_SIZE];
+int n;
 
 struct Position {
     int x, y;
@@ -18,20 +19,12 @@ struct Position {
     Position(int x, int y): x(x), y(y) {}
 };
 
-void read_images(int size, ifstream &infile) {    
-    for(int i=0; i<size; i++) {
-        for(int j=0; j<size; j++) {
-            infile >> input_IMG[i][j];
-        }
-    }
-}
-
-int offset[4][2] = {{-1, 0}.
+int offset[4][2] = {{-1, 0},
                     {0, 1},
-                    {1, 0}.
-                    {0, -`1}};
+                    {1, 0},
+                    {0, -1}};
 
-bool movable(Position pos, int dir, int n) {
+bool movable(Position pos, int dir) {
     int x = pos.x + offset[dir][0];
     int y = pos.y + offset[dir][1];
     return x>=0 && x<n && y>=0 && input_IMG[x][y]==0;
@@ -41,18 +34,30 @@ Position move_to(Position pos, int dir) {
     return Position(pos.x + offset[dir][0], pos.y + offset[dir][1]);
 }
 
+void read_images(ifstream &infile) {    
+    for(int i=0; i<n; i++) {
+        for(int j=0; j<n; j++) {
+            infile >> input_IMG[i][j];
+        }
+    }
+}
+
+
 int main() {
-    pair<int, int> position = 0,0; // 현재 좌표를 나타내는 pair
     ifstream infile("input.txt");
     int T, N;
     infile >> T;
     for(int i=0; i<T; i++) {
-        infile >> N;
-        read_images(N, infile);
-        stack<pair<int, int>> s1; // 좌표를 저장하는 스택
+        infile >> n;
+        read_images(infile);
+        stack<Position> s;  // 위치를 저장할 스택
+        Position cur(0, 0); // 현재 위치를 표현
 
-        while(true) {
-            
+        // 가능하면 나중에 함수로 빼기?
+        for(int i=0; i<n; n++) {
+            for(int j=0; j<n; n++) {
+
+            }
         }
     }
 
