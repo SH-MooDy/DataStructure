@@ -10,10 +10,23 @@
         "string": "cpp",
         "iostream": "cpp",
         "list": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "stack": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "terminal.integrated.scrollback": 10000,
-    "CodeGPT.apiKey": "CodeGPT Plus Beta" // 추가된 항목
-    
+    "CodeGPT.apiKey": "CodeGPT Plus Beta",
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "C_Cpp.clang_format_style": {
+        "BasedOnStyle": "Google",
+        "IndentWidth": 4,
+        "ColumnLimit": 0,
+        "BreakBeforeBraces": "Allman",
+        "SpacesInParentheses": false,
+        "CommentPragmas": "^.*$"
+    },
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
 }
