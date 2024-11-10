@@ -107,6 +107,6 @@ int main() {
   string expr;
   cout << "Enter an infix expression: ";
   getline(cin, expr);
-  cout << evaluate(expr) << endl;
+  cout << "Result: " << evaluate(expr) << endl;
   return 0;
 }

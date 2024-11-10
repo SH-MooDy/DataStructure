@@ -11,7 +11,8 @@
         "iostream": "cpp",
         "list": "cpp",
         "stdexcept": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "xiosbase": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "terminal.integrated.scrollback": 10000,

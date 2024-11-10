@@ -17,10 +17,9 @@ struct Position {
   Position(int x, int y, int dir) : x(x), y(y), dir(dir) {}
 };
 
-// 8방향 (상, 우, 하, 좌, 대각선 포함)
 int offset[8][2] = {
     {-1, 0},  {0, 1},  {1, 0},  {0, -1},  // 상, 우, 하, 좌
-    {-1, -1}, {-1, 1}, {1, -1}, {1, 1}    // 4개 대각선
+    {-1, -1}, {-1, 1}, {1, -1}, {1, 1}    // 대각선
 };
 
 bool movable(Position pos, int dir) {
@@ -60,7 +59,7 @@ int main() {
           input_IMG[cur.x][cur.y] = VISITED_IMAGE;
 
           while (true) {
-            bool forwarded = false;
+            bool forwarded = false;  // 움직였는지 여부를 나타내는 플래그
 
             // 현재 위치에서 8방향으로 탐색
             while (cur.dir < 8) {
