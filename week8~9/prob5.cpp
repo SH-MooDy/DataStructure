@@ -69,7 +69,7 @@ double evaluate(string infix) {
   stringstream token_stream;
   for (size_t i = 0; i < infix.length(); ++i) {
     char c = infix[i];
-    if (isspace(c)) continue;
+    if (isspace(c)) continue;  // 공백인 경우 무시
 
     if (isdigit(c) ||
         (c == '.' || (c == '-' && (i == 0 || is_operator(infix[i - 1]))))) {
