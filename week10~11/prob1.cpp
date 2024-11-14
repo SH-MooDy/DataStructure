@@ -6,9 +6,9 @@ using namespace std;
 
 const int MAX_CAPACITY = 100;
 int GRID[MAX_CAPACITY][MAX_CAPACITY];
-int RESET_GRID[MAX_CAPACITY][MAX_CAPACITY];
 int N, k;
 
+/*
 void print_test() {
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
@@ -17,6 +17,7 @@ void print_test() {
     cout << endl;
   }
 }
+*/
 
 void read_file() {
   ifstream grid("input1.txt");
@@ -25,7 +26,6 @@ void read_file() {
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
       grid >> GRID[i][j];
-      RESET_GRID[i][j] = GRID[i][j];  // RESET_GRID 초기화
     }
   }
   grid >> k;
@@ -35,7 +35,9 @@ void read_file() {
 void reset_GRID() {
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
-      GRID[i][j] = RESET_GRID[i][j];
+      if (GRID[i][j] == -1) {
+        GRID[i][j] = 0;
+      }
     }
   }
 }
@@ -60,7 +62,6 @@ int main() {
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
       if (GRID[i][j] == 0) {
-        reset_GRID();  // 초기 상태로 복원
         queue<pair<int, int>> que;
         pair<int, int> cur(i, j);  // 현재 위치
         GRID[cur.first][cur.second] = -1;
@@ -87,16 +88,11 @@ int main() {
         }
 
         if (max_space < count_space) {
-          max_space = count_space;
           max_pos = {i, j};
+          max_space = count_space;
         }
 
-        if (i == 4 && j == 5) {
-          cout << "4,5인 경우" << count_space << endl;
-        }
-        if (i == 4 && j == 6) {
-          cout << "4,6인 경우" << count_space;
-        }
+        reset_GRID();
       }
     }
   }
