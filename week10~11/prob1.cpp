@@ -90,7 +90,7 @@ int main() {
           max_space = count_space;
           max_pos = {i, j};
         }
-        
+
         if (i == 4 && j == 5) {
           cout << "4,5ÀÎ °æ¿ì" << count_space << endl;
         }
