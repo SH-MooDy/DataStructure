@@ -12,7 +12,9 @@
         "list": "cpp",
         "stdexcept": "cpp",
         "stack": "cpp",
-        "xiosbase": "cpp"
+        "xiosbase": "cpp",
+        "queue": "cpp",
+        "fstream": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "terminal.integrated.scrollback": 10000,
