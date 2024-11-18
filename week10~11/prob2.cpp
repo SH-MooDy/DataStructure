@@ -7,13 +7,13 @@ using namespace std;
 
 const int MAX_CAPACITY = 100;
 int MAZE[MAX_CAPACITY][MAX_CAPACITY];
-int MIN_CURVE[MAX_CAPACITY][MAX_CAPACITY];  // ÃÖ¼Ò ™ÀÓ ¼ö¸¦ ÀúÀåÇÏ´Â ¹è¿­
+int MIN_CURVE[MAX_CAPACITY][MAX_CAPACITY];  // ìµœì†Œ êº½ì„ ìˆ˜ë¥¼ ì €ì¥í•˜ëŠ” ë°°ì—´
 int N;
 
 struct Position {
   pair<int, int> pos;
-  int dir;          // ÀÌÀü ÀÌµ¿ ¹æÇâÀ» ÀúÀå
-  int curve_count;  // ÇöÀç±îÁö ²ªÀÎ ¼ö¸¦ ÀúÀå
+  int dir;          // ì´ì „ ì´ë™ ë°©í–¥ì„ ì €ì¥
+  int curve_count;  // í˜„ì¬ê¹Œì§€ êº¾ì¸ ìˆ˜ë¥¼ ì €ì¥
   Position(int x, int y, int dir, int curve_count)
       : pos(x, y), dir(dir), curve_count(curve_count) {}
 };
@@ -25,7 +25,7 @@ void read_file() {
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
       infile >> MAZE[i][j];
-      MIN_CURVE[i][j] = INT_MAX;  // ÃÊ±â°ªÀº ÃÖ´ë°ª
+      MIN_CURVE[i][j] = INT_MAX;  // ì´ˆê¸°ê°’ì€ ìµœëŒ€ê°’
     }
   }
 
@@ -47,7 +47,7 @@ pair<int, int> move_to(pair<int, int> pos, int dir) {
 int main() {
   read_file();
   queue<Position> que;
-  Position start(0, 0, -1, 0);  // Ã¹ Ä­Àº ¹æÇâÀÌ ¾øÀ¸¹Ç·Î -1·Î ÃÊ±âÈ­
+  Position start(0, 0, -1, 0);  // ì²« ì¹¸ì€ ë°©í–¥ì´ ì—†ìœ¼ë¯€ë¡œ -1ë¡œ ì´ˆê¸°í™”
   MIN_CURVE[0][0] = 0;
   que.push(start);
 
@@ -58,7 +58,7 @@ int main() {
     Position cur = que.front();
     que.pop();
 
-    // µµÂøÁö µµÂø ½Ã
+    // ë„ì°©ì§€ ë„ì°© ì‹œ
     if (cur.pos.first == N - 1 && cur.pos.second == N - 1) {
       cout << cur.curve_count << endl;
       return 0;
@@ -69,12 +69,12 @@ int main() {
         pair<int, int> p = move_to(cur.pos, dir);
         int new_cureve_count = cur.curve_count;
 
-        // ÀÌÀü ¹æÇâ°ú ´Ù¸¥ °æ¿ì
+        // ì´ì „ ë°©í–¥ê³¼ ë‹¤ë¥¸ ê²½ìš°
         if (cur.dir != -1 && cur.dir != dir) {
           new_cureve_count++;
         }
 
-        // ´õ ÀûÀº ²ªÀº ¼ö·Î µµ´ŞÇÑ °æ¿ì¸¸ Å¥¿¡ Çª½¬
+        // ë” ì ì€ êº¾ì€ ìˆ˜ë¡œ ë„ë‹¬í•œ ê²½ìš°ì—ë§Œ íì— í‘¸ì‰¬
         if (new_cureve_count < MIN_CURVE[p.first][p.second]) {
           MIN_CURVE[p.first][p.second] = new_cureve_count;
           que.push(Position(p.first, p.second, dir, new_cureve_count));
