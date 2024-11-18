@@ -1,7 +1,10 @@
+8. a^b를 순환을 통해 계산하는 함수이다.
+9. 배열 arr의 start_index부터 end_index까지의 부분을 순환을 이용한 선택 정렬 알고리즘을 활용하여 오름차순으로 정령하는 함수이다.
+10. 
 #include <iostream>
 #include <string>
 using namespace std;
-
+    
 bool is_palindrome(string str, int start_index, int end_index) {
   if (start_index >= end_index) {
     return true;
