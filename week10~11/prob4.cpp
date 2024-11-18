@@ -17,8 +17,7 @@ int floor(int arr[], int start_index, int K) {
 }
 
 int ceiling(int arr[], int end_index, int K) {
-  
-}
+  if (end_index == sizeof(arr /) - 1) }
 
 int main() {
   int N, K;
