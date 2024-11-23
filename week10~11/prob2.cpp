@@ -13,7 +13,7 @@ int N;
 struct Position {
   pair<int, int> pos;
   int dir;          // 이전 이동 방향을 저장
-  int curve_count;  // 현재까지 꺾인 수를 저장
+  int curve_count;  // 현재까지 꺽인 수를 저장
   Position(int x, int y, int dir, int curve_count)
       : pos(x, y), dir(dir), curve_count(curve_count) {}
 };
@@ -74,7 +74,7 @@ int main() {
           new_cureve_count++;
         }
 
-        // 더 적은 꺾은 수로 도달한 경우에만 큐에 푸쉬
+        // 더 적은 꺽은 수로 도달한 경우에만 큐에 푸쉬
         if (new_cureve_count < MIN_CURVE[p.first][p.second]) {
           MIN_CURVE[p.first][p.second] = new_cureve_count;
           que.push(Position(p.first, p.second, dir, new_cureve_count));
