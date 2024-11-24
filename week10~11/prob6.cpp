@@ -1,4 +1,11 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int main() { return 0; }
+vector<int> findBinarySequence() {}
+int main() {
+  int N, K;
+  cin >> N >> K;
+
+  return 0;
+}
