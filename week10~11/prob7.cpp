@@ -1,47 +1,44 @@
-#include <fstream>
 #include <iostream>
 #include <vector>
 using namespace std;
 
-vector<int> lucky_numbers;
-
-void read_file() {
-  ifstream infile("lucky_numbers.txt");
-  int num;
-  while (infile >> num) {
-    lucky_numbers.push_back(num);
-  }
-  infile.close();
-}
-
-bool isLuckyNum(int k, int step) {
-  // step이 배열보다 크면 종료
-  if (step > lucky_numbers.size()) {
-    return true;
+bool isLuckyNum(int n) {
+  vector<int> numbers;
+  for (int i = 1; i <= 1000000; i++) {
+    numbers.push_back(i);
   }
 
-  vector<int> remained_numbers;  // 제거되지 않은 숫자를 저장할 벡터
-  for (int i = 0; i < lucky_numbers.size(); i++) {
-    if ((i + 1) % step == 0) {
-      if (lucky_numbers[i] == k) {
-        return false;
+  int step = 2;
+  while (step <= numbers.size()) {
+    vector<int> filtered;
+    for (int i = 0; i < numbers.size(); i++) {
+      if ((i + 1) % step != 0) {
+        filtered.push_back(numbers[i]);
       }
-    } else {
-      remained_numbers.push_back(lucky_numbers[i]);
+    }
+    numbers = filtered;
+
+    if (n < numbers.size() && numbers[n - 1] == n) {
+      break;
+    }
+
+    step++;
+  }
+
+  // 행운수 여부 확인
+  for (int num : numbers) {
+    if (num == n) {
+      return true;
     }
   }
-
-  // 다음 단계로 이동
-  lucky_numbers = remained_numbers;
-  return isLuckyNum(k, step + 1);
+  return false;
 }
 
 int main() {
-  read_file();
-  int k;
-  cin >> k;
+  int n;
+  cin >> n;
 
-  if (isLuckyNum(k, 2)) {  // step은 2부터 시작
+  if (isLuckyNum(n)) {
     cout << "yes" << endl;
   } else {
     cout << "no" << endl;
