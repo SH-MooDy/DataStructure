@@ -50,11 +50,11 @@ bool canMovePo(int x, int y) {
 
         // 건너뛴 위치가 이동 가능한 경우
         if (nx >= 0 && nx < N && ny >= 0 && ny < N && board[nx][ny] == 0) {
-          if (canMovePo(nx, ny)) {  // 재귀 호출
+          if (canMovePo(nx, ny)) {  
             return true;
           }
         }
-        break;  // 건너뛴 말 뒤는 더 이상 탐색하지 않음
+        break;  // 건너뛴 말 뒤는 더 이상 탐색X
       }
       nx += offset[dir][0];
       ny += offset[dir][1];
