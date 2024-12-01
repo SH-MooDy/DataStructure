@@ -13,6 +13,7 @@ int floor(int arr[], int start_index, int K, int size) {
     return arr[start_index - 1];
   }
 
+  // 탐색이 배열끝까지 이루어졌을 경우
   if (start_index >= size - 1) {
     return arr[start_index];
   }

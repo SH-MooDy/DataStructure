@@ -29,17 +29,24 @@ void read_file() {
     }
   }
 
+  if (!infile) {
+    cerr << "Error reading input file." << endl;
+    exit(1);
+  }
+
   infile.close();
 }
 
-int offset[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int offset[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};  // 상, 우, 하, 좌 방향
 
+// 현재 위치에서 해당 방향으로 이동 가능한지 확인
 bool movable(pair<int, int> pos, int dir) {
   int x = pos.first + offset[dir][0];
   int y = pos.second + offset[dir][1];
   return x >= 0 && x < N && y >= 0 && y < N && MAZE[x][y] == 0;
 }
 
+// 현재 위치에서 해당 방향으로 이동
 pair<int, int> move_to(pair<int, int> pos, int dir) {
   return {pos.first + offset[dir][0], pos.second + offset[dir][1]};
 }
@@ -51,8 +58,7 @@ int main() {
   MIN_CURVE[0][0] = 0;
   que.push(start);
 
-  int curve_count = 0;
-  int min_curved = 0;
+  int result = INT_MAX;  // 최종 최소 꺽임 수
 
   while (!que.empty()) {
     Position cur = que.front();
@@ -60,16 +66,17 @@ int main() {
 
     // 도착지 도착 시
     if (cur.pos.first == N - 1 && cur.pos.second == N - 1) {
-      cout << cur.curve_count << endl;
-      return 0;
+      result = min(result, cur.curve_count);  // 최소 꺽임 수 갱신
+      continue;
     }
 
+    // 네 방향 탐색
     for (int dir = 0; dir < 4; dir++) {
       if (movable(cur.pos, dir)) {
         pair<int, int> p = move_to(cur.pos, dir);
         int new_cureve_count = cur.curve_count;
 
-        // 이전 방향과 다른 경우
+        // 이전 방향과 다른 경우 꺽인 횟수 증가
         if (cur.dir != -1 && cur.dir != dir) {
           new_cureve_count++;
         }
@@ -82,6 +89,12 @@ int main() {
       }
     }
   }
-  cout << "No path exists." << endl;
+
+  if (result == INT_MAX) {
+    cout << "No path exists." << endl;  // 경로가 없을 경우
+  } else {
+    cout << result << endl;  // 최소 꺽임 수 출력
+  }
+
   return 0;
 }

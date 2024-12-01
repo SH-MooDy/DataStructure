@@ -61,7 +61,7 @@ int main() {
 
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
-      if (GRID[i][j] == 0) {
+      if (GRID[i][j] == 0) {  // 풀이 자랄 수 있는 곳인 경우
         queue<pair<int, int>> que;
         pair<int, int> cur(i, j);  // 현재 위치
         GRID[cur.first][cur.second] = -1;
@@ -71,7 +71,7 @@ int main() {
         int year = 0;
 
         while (!que.empty() && year < k) {
-          int level_size = que.size();
+          int level_size = que.size();  // 현재 년도에 탐색할 위치의 수
           for (int l = 0; l < level_size; l++) {
             cur = que.front();
             que.pop();

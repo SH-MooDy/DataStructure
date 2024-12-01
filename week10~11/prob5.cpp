@@ -28,7 +28,7 @@ void read_maze() {
 
 void findMazePath(int x, int y) {
   // 범위를 벗어나는 경우
-  if (x < 0 || y < 0 || x >= N || y >=N || maze[x][y] != PATHWAY) {
+  if (x < 0 || y < 0 || x >= N || y >= N || maze[x][y] != PATHWAY) {
     return;
   }
 
