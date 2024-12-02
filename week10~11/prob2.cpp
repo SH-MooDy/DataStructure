@@ -29,11 +29,6 @@ void read_file() {
     }
   }
 
-  if (!infile) {
-    cerr << "Error reading input file." << endl;
-    exit(1);
-  }
-
   infile.close();
 }
 
